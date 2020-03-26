@@ -1,0 +1,35 @@
+// Postfix to Infix (Approach 1)
+
+#include<bits/stdc++.h>
+using namespace std;
+
+bool isOperator(char c) {
+    return c == '+' || c == '-' || c == '*' || c == '/' || c == '^';
+}
+
+string postfixToInfix(string postfix) {
+    stack<string> stack;
+    int length = postfix.length();
+
+    for(int i = 0; i < length; i++) {
+        if(isOperator(postfix[i])) {
+            string op1 = stack.top();
+            stack.pop();
+            string op2 = stack.top();
+            stack.pop();
+
+            string temp = "(" + op2 + postfix[i] + op1 + ")";
+            stack.push(temp);
+        } else {
+            stack.push(string(1, postfix[i]));
+        }
+    }
+    return stack.top();
+}
+
+
+int main() {
+    string postfix = "AB-DE+F*/";
+    cout << postfixToInfix(postfix) << endl;
+    return 0;
+}
