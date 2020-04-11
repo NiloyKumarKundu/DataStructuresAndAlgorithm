@@ -15,7 +15,7 @@ bool dfs(int v, int parent) {
             return result = true;
         }
     }
-    return result;
+    return result = false;
 }
 
 int main () {
