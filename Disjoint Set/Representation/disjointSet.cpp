@@ -6,14 +6,22 @@ using namespace std;
  
 int parent[MAX];
  
-int find(int a) {
+int findRecursive(int a) {
     if(parent[a] < 0) {
         return a;
     } else {
-        return parent[a] =  find(parent[a]);
+        return findRecursive(parent[a]);
     }
 }
- 
+
+
+int findIterative(int a) {
+    while(parent[a] > 0) {
+        a = parent[a];
+    }
+    return a;
+}
+
 void Union(int a, int b) {
     parent[a] += parent[b];
     parent[b] = a;
@@ -31,11 +39,11 @@ int main() {
         parent[i] = -1;
     }
  
-    for(int i = 1; i <= n; i++) {
+    for(int i = 1; i <= m; i++) {
         int a, b;
         cin >> a >> b;
-        a = find(a);
-        b = find(b);
+        a = findRecursive(a);
+        b = findIterative(b);
         if(a != b) {
             Union(a, b);
         }
