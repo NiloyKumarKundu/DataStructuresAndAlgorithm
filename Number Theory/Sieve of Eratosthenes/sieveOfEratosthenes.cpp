@@ -15,9 +15,19 @@ using namespace std;
 
 bool isPrime[max];
 
+bool getPrime(int n) {
+  if (n < 2) return false;
+  if (n == 2) return true;
+  if (n % 2 == 0) return false;
+  return isPrime[n] == true;
+}
+
 void sieve() {
-    memset(isPrime, true, sizeof(isPrime));
-    isPrime[0] = 0, isPrime[1] = 0;
+    memset(isPrime, true, sizeof(isPrime));     // first all odd number's prime
+
+    isPrime[0] = 0, isPrime[1] = 0;             // make 0 and 1 is not prime
+
+    // Sieve
     for (int i = 2; i * i <= max; i++) {
         if(isPrime[i]) {
             for (int j = i * i; j <= max; j += i) {
