@@ -1,5 +1,5 @@
 #include <bits/stdc++.h>
-#define max 90000000
+#define max 10000002
 #define maxN 1000000
 #define mod 10000000 + 5
 #define pb push_back
@@ -14,6 +14,7 @@
 using namespace std;
 
 bool isPrime[max];
+vi Primes;
 
 bool getPrime(int n) {
   if (n < 2) return false;
@@ -22,20 +23,28 @@ bool getPrime(int n) {
   return isPrime[n] == true;
 }
 
+
 void sieve() {
-    memset(isPrime, true, sizeof(isPrime));     // first all odd number's prime
+    for (int i = 0; i <= max; i++) {
+        isPrime[i] = true;
+        // Primes.push_back(0);
+    }
 
-    isPrime[0] = 0, isPrime[1] = 0;             // make 0 and 1 is not prime
+    for (int i = 3; i * i <= max; i += 2) {
+        if (isPrime[i]) {
+            for (int j = i * i; j <= max; j += i)
+                isPrime[j] = false;
+        }
+    }
 
-    // Sieve
-    for (int i = 2; i * i <= max; i++) {
+    Primes.push_back(2);
+    for (int i = 3; i < max; i += 2) {
         if(isPrime[i]) {
-            for (int j = i * i; j <= max; j += i) {
-                isPrime[j] = 0;
-            }
+            Primes.push_back(i);
         }
     }
 }
+
 
 int main() {
 #ifndef Niloy
@@ -44,11 +53,10 @@ int main() {
 #endif
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-
+    
     sieve();
-    int limit = 40;         // Limit joto porjonto lagbe
-    for (int i = 1; i < limit; i++) {
-        cout << isPrime[i] << endl;
+    for (int i = 0; i < 200; i++) {
+        cout << Primes[i] << endl;
     }
     
     return 0;
