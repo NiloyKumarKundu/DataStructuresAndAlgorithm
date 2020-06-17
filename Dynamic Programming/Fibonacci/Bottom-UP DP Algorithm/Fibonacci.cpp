@@ -1,5 +1,5 @@
 #include <bits/stdc++.h>
-#define max 1000000
+#define MAX 100000
 #define pb push_back
 #define pairs pair<int, int>
 #define vi vector<int>
@@ -16,34 +16,28 @@
 #define write(x) freopen(x, "w", stdout)
 #define InputArray(a,n) for(int i=0;i<n;i++) cin >> a[i];
 #define CopyArray(a,temp,n) for(int i=0;i<n;i++) temp[i]=a[i];
-#define PrintArray(a,n) for(int i=0;i<n;i++) cout << a[i] << " "; cout << endl;
+#define PrintArray(a,n) for(int i=0;i<=n;i++) cout << a[i] << " "; cout << endl;
 using namespace std;
 
-int arr[max];
-
-int fibonacci(int n) {
-	if(n == 0 || n == 1) {
-		return 1;
-	}
-
-	arr[n] = fibonacci(n - 1) + fibonacci(n - 2);
-	return arr[n];
-}
+int fib[MAX];
 
 int main() {
-#ifdef Niloy
-	read("input.txt");
-	write("output.txt");
-#endif
-
 	int n;
 	cin >> n;
-	arr[0] = 1;
-	arr[1] = 1;
+	for (int i = 1; i <= n; i++) {
+		int f;
+		if (i <= 2) {
+			f = 1;
+		} else {
+			f = fib[i - 1] + fib[i - 2];
+		}
+		fib[i] = f;
+	}
 
-	int result = fibonacci(n);
+	cout << fib[n] << endl;
 
-	PrintArray(arr, n);
+	PrintArray(fib, n);
+
 	cerr << "time = " << (clock() / CLOCKS_PER_SEC) << " sec" << '\n';
 	return 0;
 }
