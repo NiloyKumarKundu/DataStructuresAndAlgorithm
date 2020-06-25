@@ -53,36 +53,14 @@ struct debugger {
   
 /* ----------------------------------------------------------------------------------- */
 
-vi subset;
-int n;
-vector <vector<int> > TwoD;
-vi arr(20);
+vector<vector<int>> TwoD;
 
-void printSub() {
-	cout << "[";
+void print(vi subset) {
 	for (int i = 0; i < subset.size(); i++) {
-		cout << subset[i];
-		if (i != subset.size() - 1) {
-			cout << ", ";
-		}
+		cout << subset[i] << " ";
 	}
-	cout << "]" << endl;
+	cout << endl;
 }
-
-
-// Making Subset
-void search(int pos, int length) {
-	if(pos == length) {
-		// printSub();
-		TwoD.push_back(subset);	  // Storing subset to a 2d vector
-	} else {
-		search(pos + 1, length);
-		subset.push_back(arr[pos]);
-		search(pos + 1, length);
-		subset.pop_back();
-	}
-}
-
 
 void printTwoD() {
 	for (int i = 0; i < TwoD.size(); i++) {
@@ -93,7 +71,7 @@ void printTwoD() {
 				cout << ", ";
 			}
 		}
-		if(i != TwoD.size() - 1) {
+		if(i != TwoD[i].size() - 1) {
 			cout << "]," << endl;
 		} else {
 			cout << "]" << endl;
@@ -102,20 +80,27 @@ void printTwoD() {
 }
 
 
-
 void solve() {
-	int k;
+	int n;
 	cin >> n;
+	int arr[10];
 	for (int i = 0; i < n; i++) {
 		cin >> arr[i];
 	}
-	search(0, n);
-	cout << "After completing subset\n";
-	printTwoD();
+
+	for (int i = 0; i < (1 << n); i++) {
+		vi subset;
+		for (int j = 0; j < n; j++) {
+			if (i & (1 << j))
+				subset.push_back(arr[j]);
+		}
+		TwoD.push_back(subset);
+	}
 }
 
 int main() {
 	solve();
+	printTwoD();
 
 	// __test {
 	// 	solve();
