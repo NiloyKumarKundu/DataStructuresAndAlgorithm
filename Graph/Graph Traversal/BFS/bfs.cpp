@@ -27,7 +27,7 @@ void bfs(int node) {
     while(!que.empty()) {
         int cur = que.front();
         que.pop();
-        cout << cur << " ";
+        // cout << cur << " ";
         for (int child : graph[cur]) {
             if(!visited[child]) {
                 que.push(child);
