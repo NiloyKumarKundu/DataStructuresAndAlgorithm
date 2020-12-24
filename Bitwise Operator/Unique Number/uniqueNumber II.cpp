@@ -96,24 +96,34 @@ void input() {
 
 
 void solve() {
-	int arr[] = {2, 2, 2, 2, 3, 3, 8, 8, 8, 7, 5, 5, 5, 10, 5, 8};
-	int ans = 0, res = 0, mask = 1;
-	int n = (sizeof(arr) / sizeof(arr[0]));
-
+	int n;
+	vi a {15, 118, 17, 118, 15, 19};
+	n = a.size();
+	int res = 0;
 	rep(i, 0, n) {
-		if (arr[i] & mask == 1) {
-			ans = ans ^ arr[i];
-		}
-		res = res ^ arr[i];
+		res = res ^ a[i];
 	}
 
-	int a = ans, b;
-	b = res ^ a;   // res = a ^ b; b = res ^ a; because we know the result res and a.
+	int i = 0, value = res;
+	while (value > 0) {
+		if (value & 1) {
+			break;
+		}
+		i++;
+		value = value >> 1;
+	}
 
-	cout << a << " " << b << endl;
+	int mask = (1 << i), A = 0, B = 0;
+	rep(i, 0, n) {
+		if(mask & a[i]) {
+			A = A ^ a[i];
+		}
+	}
+	B = res ^ A;
+	cout << A << " " << B << endl;
+
+	
 }
-
-
 
 int32_t main() {
 	input();
