@@ -1,44 +1,40 @@
-/** Marge Sort **/
-
 #include <bits/stdc++.h>
-#define MAX 10000
 using namespace std;
 
-int A[MAX];
 
-void marge(int low, int mid, int high) {
-    int l[10], r[10], n1, n2;
-    n1 = mid - low + 1;
-    n2 = high - mid;
+void marge(int A[], int p, int q, int r) {
+    int L[1000], R[1000], n1, n2;
+    n1 = q - p + 1;
+    n2 = r - q;
 
     for(int i = 0; i < n1; i++) {
-        l[i] = A[low + i];
+        L[i] = A[p + i];
     }
     for(int i = 0; i < n2; i++) {
-        r[i] = A[mid + i + 1];
+        R[i] = A[q + i + 1];
     }
-    l[n1] = r[n2] = 10000000;
+    L[n1] = R[n2] = 10000000;
     int i = 0, j = 0;
 
-    for(int k = low; k <= high; k++) {
-        if(l[i] <= r[j]) {
-            A[k] = l[i];
+    for(int k = p; k <= r; k++) {
+        if(L[i] <= R[j]) {
+            A[k] = L[i];
             i++;
         } else {
-            A[k] = r[j];
+            A[k] = R[j];
             j++;
         }
     }
 }
 
 
-void margeSort(int low, int high) {
-    int mid;
-    if(low < high) {
-        mid = (low + high) / 2;
-        margeSort(low, mid);
-        margeSort(mid + 1, high);
-        marge(low, mid, high);
+void margeSort(int A[], int p, int r) {
+    int q;
+    if(p < r) {
+        q = (p + r) / 2;
+        margeSort(A, p, q);
+        margeSort(A, q + 1, r);
+        marge(A, p, q, r);
     }
 }
 
@@ -46,8 +42,9 @@ void margeSort(int low, int high) {
 int main() {
     int n;
     cin >> n;
+	int A[n];
 
-    for(int i = 0; i < n; i++) {
+	for(int i = 0; i < n; i++) {
         cin >> A[i];
     }
 
@@ -56,7 +53,7 @@ int main() {
     }
     cout << "\n";
 
-    margeSort(0, n - 1);
+    margeSort(A, 0, n - 1);
 
     for(int i = 0; i < n; i++) {
         cout << A[i] << " ";
